@@ -7,7 +7,7 @@ import ast
 from azure.ai.contentsafety import ContentSafetyClient
 from azure.ai.contentsafety.models import AnalyzeTextOptions, AnalyzeTextOutputType
 from azure.core.credentials import AzureKeyCredential
-
+ 
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv(), override=True)
 
