@@ -7,7 +7,6 @@ import ast
 from azure.ai.contentsafety import ContentSafetyClient
 from azure.ai.contentsafety.models import AnalyzeTextOptions, AnalyzeTextOutputType
 from azure.core.credentials import AzureKeyCredential
-from azure.identity import DefaultAzureCredential
  
 from dotenv import load_dotenv, find_dotenv
 load_dotenv(find_dotenv(), override=True)
@@ -22,7 +21,7 @@ key = os.environ.get("AZURE_CONTENT_SAFETY_KEY")
 
 client = ContentSafetyClient(
     endpoint=endpoint,
-    credential=DefaultAzureCredential()
+    credential=AzureKeyCredential(key) 
 )
 
 def invoke_sql_query(message, thread_id):
