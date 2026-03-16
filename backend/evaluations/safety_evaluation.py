@@ -19,11 +19,17 @@ api_url = "http://localhost:8000"   # FastAPI uvicorn URL with port 8000
 
 endpoint = os.environ.get("AZURE_CONTENT_SAFETY_ENDPOINT")
 key = os.environ.get("AZURE_CONTENT_SAFETY_KEY")
- 
+
+azure_credential = DefaultAzureCredential()
 client = ContentSafetyClient(
     endpoint=endpoint,
-    credential=DefaultAzureCredential()
+    credential=azure_credential
 )
+
+token = azure_credential.get_token(
+    "https://cognitiveservices.azure.com/.default"
+).token
+
 
 def invoke_sql_query(message, thread_id):
     try:        
@@ -42,7 +48,7 @@ def invoke_sql_query(message, thread_id):
 def check_prompt_injection(prompt: str, documents=None):
     url = f"{endpoint}/contentsafety/text:shieldPrompt?api-version=2024-02-15-preview"
     headers = {
-        "Ocp-Apim-Subscription-Key": key,
+        "Authorization": f"Bearer {token}",
         "Content-Type": "application/json"
     }
     payload = {"userPrompt": prompt}
