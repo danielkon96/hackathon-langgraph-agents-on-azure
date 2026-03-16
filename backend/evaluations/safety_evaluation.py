@@ -19,7 +19,7 @@ api_url = "http://localhost:8000"   # FastAPI uvicorn URL with port 8000
 
 endpoint = os.environ.get("AZURE_CONTENT_SAFETY_ENDPOINT")
 key = os.environ.get("AZURE_CONTENT_SAFETY_KEY")
-
+ 
 client = ContentSafetyClient(
     endpoint=endpoint,
     credential=DefaultAzureCredential()
